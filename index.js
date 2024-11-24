@@ -10,6 +10,11 @@ app.use(bodyParser.json())
 
 app.use('/students', studentsRoutes)
 
+app.use((err, req, res, next) => {
+    console.log(err.stack)
+    res.status(500).send("Something broke!")
+})
+
 app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`)
 
 )
