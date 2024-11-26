@@ -1,19 +1,20 @@
 import express from 'express'
 
 import { getUsers, getUserById, createUser, editUser, deleteStudent } from '../controllers/students.js';
+import verifyToken from '../middlewares/auth.js';
 
 const router = express.Router();
 
 
 // all routes in here are starting with /students
-router.get('/', getUsers)
+router.get('/', verifyToken, getUsers)
 
-router.get('/:id', getUserById)
+router.get('/:id', verifyToken, getUserById)
 
-router.post('/', createUser)
+router.post('/', verifyToken, createUser)
 
-router.patch('/:id', editUser)
+router.patch('/:id', verifyToken, editUser)
 
-router.delete('/:id', deleteStudent)
+router.delete('/:id', verifyToken, deleteStudent)
 
 export default router
