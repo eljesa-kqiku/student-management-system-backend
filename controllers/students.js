@@ -64,8 +64,7 @@ export const editUser = async (req, res) => {
             SET std_first_name = ?, std_last_name = ?, std_index = ?, std_date_of_birth = ?, std_municipality_id = ?
             WHERE std_id = ?
         `, [student.first_name, student.last_name, student.index, student.date_of_birth, student.municipality_id, id])
-        
-        console.log(student, id)
+
         res.send("Student updated successfully!")
     }catch(error){
         console.log(error)
