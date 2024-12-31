@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getUsers, getUserById, createUser, editUser, deleteStudent } from '../controllers/students.js';
+import { getUsers, getUserById, createUser, editUser, deleteStudent, testStudent } from '../controllers/students.js';
 import verifyToken from '../middlewares/auth.js';
 
 const router = express.Router();
@@ -17,4 +17,5 @@ router.patch('/:id', verifyToken, editUser)
 
 router.delete('/:id', verifyToken, deleteStudent)
 
+router.get('/test', testStudent)
 export default router
