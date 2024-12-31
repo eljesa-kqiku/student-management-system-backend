@@ -14,12 +14,4 @@ async function getStudents(){
     return result
 }
 
-async function getStudentById(id) {
-    const [rows] = await pool.query(`
-        select * from students where std_id = ?
-        `, id)
-
-    return rows[0]
-}
-
 export default pool;

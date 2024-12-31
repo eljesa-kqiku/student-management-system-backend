@@ -18,6 +18,15 @@ export const register = async (req, res) => {
         res.status(500).json({message: "Server Error"})
     }
 }
+export const test = async (req, res) => {
+    try{
+
+        res.status(200).json({message: "success!"})
+    }catch(err){
+        console.error("Error", err)
+        res.status(500).json({message: "Server Error"})
+    }
+}
 
 export const login = async (req, res) => {
     try{
@@ -37,6 +46,11 @@ export const login = async (req, res) => {
         res.json({user, token});
     }catch(err){
         console.error("Error logging in", err)
-        res.status(500).json({message:"Server Error", error: err})
+        res.status(500).json({message:"Server Error", error: err, cred: {
+                host: process.env.MYSQL_HOST,
+                user: process.env.MYSQL_USER,
+                password: process.env.MYSQL_PASSWORD,
+                database: process.env.MYSQL_DATABASE
+            }})
     }
 }
