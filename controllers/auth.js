@@ -18,15 +18,6 @@ export const register = async (req, res) => {
         res.status(500).json({message: "Server Error"})
     }
 }
-export const test = async (req, res) => {
-    try{
-
-        res.status(200).json({message: "success!"})
-    }catch(err){
-        console.error("Error", err)
-        res.status(500).json({message: "Server Error"})
-    }
-}
 
 export const login = async (req, res) => {
     try{
@@ -38,7 +29,8 @@ export const login = async (req, res) => {
             return res.status(400).json({message:"Invalid Credentials"})
         }
         const user = rows[0];
-        const isPasswordMatch = await bcrypt.compare(password, user.user_password);
+        const isPasswordMatch = password === user.user_password
+        // const isPasswordMatch = await bcrypt.compare(password, user.user_password);
         if(!isPasswordMatch){
             return res.status(400).json({message:"Invalid Credentials"})
         }
@@ -46,11 +38,6 @@ export const login = async (req, res) => {
         res.json({user, token});
     }catch(err){
         console.error("Error logging in", err)
-        res.status(500).json({message:"Server Error", error: err, cred: {
-                host: process.env.MYSQL_HOST,
-                user: process.env.MYSQL_USER,
-                password: process.env.MYSQL_PASSWORD,
-                database: process.env.MYSQL_DATABASE
-            }})
+        res.status(500).json({message:"Server Error"})
     }
 }

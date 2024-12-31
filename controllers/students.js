@@ -87,7 +87,3 @@ export const deleteStudent = async (req, res) => {
         res.send("An error occured!")
     }
 }
-
-export const testStudent = async (req, res) => {
-    res.send("Connection to students route was successful!")
-}
