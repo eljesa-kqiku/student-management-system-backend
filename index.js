@@ -9,10 +9,9 @@ const PORT = 5000;
 const HOST = '0.0.0.0';
 
 app.use(cors({
-    origin: '*',
+    origin: '*.*',
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'Access-Control-Allow-Origin'],
-    credentials: true
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'Access-Control-Allow-Origin']
 }));
 // app.use(express.json())
 app.use(bodyParser.json())

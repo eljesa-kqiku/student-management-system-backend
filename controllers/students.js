@@ -2,16 +2,20 @@ import { v4 as uuidv4 } from 'uuid';
 import pool from '../database.js';
 
 export const getUsers = async (req, res) => {
-    const [rows] = await pool.query(`
-        SELECT * FROM students;
-    `)
-    res.send(rows.map(student => ({
-        id: student.std_id,
-        first_name: student.std_first_name,
-        last_name: student.std_last_name,
-        index: student.std_index,
-        municipality_id: student.std_municipality_id
-    })))
+    try{
+        const [rows] = await pool.query(`SELECT * FROM students;`)
+        res.send(rows.map(student => ({
+            id: student.std_id,
+            first_name: student.std_first_name,
+            last_name: student.std_last_name,
+            index: student.std_index,
+            municipality_id: student.std_municipality_id
+        })))
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message: "Server Error"})
+    }
+
 }
 
 export const getUserById = async (req, res) => {
@@ -34,7 +38,7 @@ export const getUserById = async (req, res) => {
             res.send("Student not found!")
     }catch(error){
         console.log(error)
-        res.send("An error occured!")
+        res.status(500).json({message: "Server Error"})
     }
 }
 
@@ -51,7 +55,7 @@ export const createUser = async (req, res) => {
         res.send("User saved successfully!")
     }catch(error){
         console.log(error)
-        res.send("An error occured!")
+        res.status(500).json({message: "Server Error"})
     }
 }
 
@@ -68,7 +72,7 @@ export const editUser = async (req, res) => {
         res.send("Student updated successfully!")
     }catch(error){
         console.log(error)
-        res.send("An error occured!")
+        res.status(500).json({message: "Server Error"})
     }
 }
 
@@ -84,6 +88,6 @@ export const deleteStudent = async (req, res) => {
         res.send("Student deleted successfully!")
     }catch(error){
         console.log(error)
-        res.send("An error occurred!")
+        res.status(500).json({message: "Server Error"})
     }
 }
