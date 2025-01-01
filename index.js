@@ -1,5 +1,5 @@
 import express, {json} from "express";
-// import bodyParser from 'body-parser'
+import bodyParser from 'body-parser'
 import cors from 'cors'
 import studentsRoutes from './routes/students.js'
 import loginRoutes from './routes/auth.js'
@@ -10,11 +10,12 @@ const HOST = '0.0.0.0';
 
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'Access-Control-Allow-Origin'],
-}))
-app.use(express.json())
-// app.use(bodyParser.json())
+    credentials: true
+}));
+// app.use(express.json())
+app.use(bodyParser.json())
 
 app.use('/students', studentsRoutes)
 app.use('/auth', loginRoutes)
