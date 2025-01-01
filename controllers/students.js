@@ -84,6 +84,6 @@ export const deleteStudent = async (req, res) => {
         res.send("Student deleted successfully!")
     }catch(error){
         console.log(error)
-        res.send("An error occured!")
+        res.send("An error occurred!")
     }
 }
