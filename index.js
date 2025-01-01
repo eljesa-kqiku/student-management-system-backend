@@ -9,7 +9,7 @@ const PORT = 5000;
 const HOST = '0.0.0.0';
 
 app.use(cors({
-    origin: '*.*',
+    origin: '*',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'Access-Control-Allow-Origin'],
 }))
