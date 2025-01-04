@@ -41,3 +41,20 @@ export const login = async (req, res) => {
         res.status(500).json({message:"Server Error"})
     }
 }
+
+export const userData = async (req, res) => {
+    try{
+        const {user_id} = req.body
+        const [rows, fields] = await pool.query(
+            "SELECT * FROM users WHERE user_id = ?", [user_id]
+        )
+        if(rows.length === 0){
+            return res.status(400).json({message:"Invalid user id"})
+        }
+        const user = rows[0];
+        res.json({user});
+    }catch(err){
+        console.error("Error", err)
+        res.status(500).json({message:"Server Error"})
+    }
+}
