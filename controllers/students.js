@@ -52,8 +52,6 @@ export const createUser = async (req, res) => {
             INSERT INTO students(std_id, std_first_name, std_last_name, std_index, std_date_of_birth, std_municipality_id)
             VALUES (?, ?, ?, ?, ?, ?)
         `, [id, student.first_name, student.last_name, student.index, student.date_of_birth, student.municipality_id])
-        let user = req.body
-        students.push({...user, id})
         res.send("User saved successfully!")
     }catch(error){
         console.log(error)
