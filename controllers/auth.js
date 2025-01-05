@@ -30,6 +30,8 @@ export const login = async (req, res) => {
         }
         const user = rows[0];
         const isPasswordMatch = password === user.user_password
+        delete user.user_password
+        // todo: use bcrypt to check passwords
         // const isPasswordMatch = await bcrypt.compare(password, user.user_password);
         if(!isPasswordMatch){
             return res.status(400).json({message:"Invalid Credentials"})
@@ -52,6 +54,7 @@ export const userData = async (req, res) => {
             return res.status(400).json({message:"Invalid user id"})
         }
         const user = rows[0];
+        delete user.user_password
         res.json({user});
     }catch(err){
         console.error("Error", err)

@@ -31,6 +31,7 @@ export const getUserById = async (req, res) => {
                 id: student.std_id,
                 first_name: student.std_first_name,
                 last_name: student.std_last_name,
+                date_of_birth: student.std_date_of_birth,
                 index: student.std_index,
                 municipality_id: student.std_municipality_id
             })
