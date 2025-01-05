@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import studentsRoutes from './routes/students.js'
 import loginRoutes from './routes/auth.js'
+import defaultRoutes from './routes/default.js'
 
 const app = express()
 const PORT = 5000;
@@ -19,6 +20,7 @@ app.use(bodyParser.json())
 
 app.use('/students', studentsRoutes)
 app.use('/auth', loginRoutes)
+app.use('/', defaultRoutes)
 
 app.use((err, req, res, next) => {
     console.log(err.stack)
