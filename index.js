@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 
 app.use('/students', studentsRoutes)
 app.use('/auth', loginRoutes)
-app.use('/', defaultRoutes)
+app.use('/api', defaultRoutes)
 
 app.use((err, req, res, next) => {
     console.log(err.stack)

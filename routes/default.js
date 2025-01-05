@@ -5,6 +5,6 @@ import verifyToken from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.get('municipalities', verifyToken, getMunicipalities)
+router.get('/municipalities', verifyToken, getMunicipalities)
 
 export default router
