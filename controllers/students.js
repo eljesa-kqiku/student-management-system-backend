@@ -3,7 +3,8 @@ import pool from '../database.js';
 
 export const getUsers = async (req, res) => {
     try{
-        const [rows] = await pool.query(`SELECT * FROM students;`)
+        let archived = req.query.archived;
+        const [rows] = await pool.query(`SELECT * FROM students WHERE archived ${archived ? ' = TRUE' : ' = FALSE OR archived IS NULL'};`)
         res.send(rows.map(student => ({
             id: student.std_id,
             first_name: student.std_first_name,
