@@ -4,7 +4,7 @@ import pool from '../database.js';
 export const getUsers = async (req, res) => {
     try{
         let archived = req.query.archived;
-        const [rows] = await pool.query(`SELECT * FROM students WHERE archived ${archived ? ' = TRUE' : ' = FALSE OR archived IS NULL'};`)
+        const [rows] = await pool.query(`SELECT * FROM students WHERE std_archived ${archived ? ' = TRUE' : ' = FALSE OR std_archived IS NULL'};`)
         res.send(rows.map(student => ({
             id: student.std_id,
             first_name: student.std_first_name,
@@ -35,7 +35,8 @@ export const getUserById = async (req, res) => {
                 last_name: student.std_last_name,
                 date_of_birth: student.std_date_of_birth,
                 index: student.std_index,
-                municipality_id: student.std_municipality_id
+                municipality_id: student.std_municipality_id,
+                archived: student.std_archived
             })
         else
             res.send("Student not found!")
