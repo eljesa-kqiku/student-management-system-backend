@@ -3,7 +3,7 @@ import pool from '../database.js';
 
 export const getUsers = async (req, res) => {
     try{
-        let archived = req.query.archived;
+        let archived = req.query.archived === 'true';
         const [rows] = await pool.query(`SELECT * FROM students WHERE std_archived ${archived ? ' = TRUE' : ' = FALSE OR std_archived IS NULL'};`)
         res.send(rows.map(student => ({
             id: student.std_id,
@@ -11,7 +11,8 @@ export const getUsers = async (req, res) => {
             last_name: student.std_last_name,
             date_of_birth: student.std_date_of_birth,
             index: student.std_index,
-            municipality_id: student.std_municipality_id
+            municipality_id: student.std_municipality_id,
+            archived: student.std_archived !== 0
         })))
     }catch(error){
         console.log(error)
@@ -67,9 +68,9 @@ export const editUser = async (req, res) => {
         const student = req.body
         await pool.query(`
             UPDATE students
-            SET std_first_name = ?, std_last_name = ?, std_index = ?, std_date_of_birth = ?, std_municipality_id = ?
+            SET std_first_name = ?, std_last_name = ?, std_index = ?, std_date_of_birth = ?, std_municipality_id = ?, std_archived = ?
             WHERE std_id = ?
-        `, [student.first_name, student.last_name, student.index, student.date_of_birth, student.municipality_id, id])
+        `, [student.first_name, student.last_name, student.index, student.date_of_birth, student.municipality_id, student.archived, id])
 
         res.send("Student updated successfully!")
     }catch(error){
