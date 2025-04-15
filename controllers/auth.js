@@ -23,19 +23,19 @@ export const login = async (req, res) => {
     try{
         const {email, password} = req.body
         const [rows, fields] = await pool.query(
-            "SELECT * FROM users WHERE user_email = ?", [email]
+            "SELECT * FROM users WHERE user_email = ? and password = ?", [email, password]
         )
         if(rows.length === 0){
             return res.status(400).json({message:"Invalid Credentials"})
         }
         const user = rows[0];
-        const isPasswordMatch = password === user.user_password
-        delete user.user_password
-        // todo: use bcrypt to check passwords
-        // const isPasswordMatch = await bcrypt.compare(password, user.user_password);
-        if(!isPasswordMatch){
-            return res.status(400).json({message:"Invalid Credentials"})
-        }
+        // const isPasswordMatch = password === user.user_password
+        // delete user.user_password
+        // // todo: use bcrypt to check passwords
+        // // const isPasswordMatch = await bcrypt.compare(password, user.user_password);
+        // if(!isPasswordMatch){
+        //     return res.status(400).json({message:"Invalid Credentials"})
+        // }
         const token = jwt.sign({userId: user.id}, process.env.SECRET_KEY, {expiresIn: '24h'})
         res.json({user, token});
     }catch(err){
